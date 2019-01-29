@@ -14,16 +14,19 @@ FILTER regex(?locatie, "Amsterdam")
 ';
 
 $sparqlquery = '
-select (COUNT(?onderwerp) AS ?c) ?onderwerp where {
+select (COUNT(?onderwerp) AS ?c) (SAMPLE(?onderwerplabel) AS ?onderwerplabel) where {
 
   ?uri a schema:Book ;
        schema:name ?titel ;
        schema:publication [ schema:startDate "' . $_GET['year'] . '" ;
                             schema:location ?locatie ] ;
-       schema:about/rdfs:label ?onderwerp .
+       schema:about ?onderwerp .
+  ?onderwerp rdfs:label ?onderwerplabel .
 FILTER regex(?locatie, "Amsterdam")
 
-} GROUP BY ?onderwerp ORDER BY DESC(?c)';
+} GROUP BY ?onderwerp ORDER BY DESC(?c)
+LIMIT 10
+';
 
 //echo $sparqlquery;
 
@@ -51,7 +54,7 @@ $data = json_decode($json,true);
 foreach ($data['results']['bindings'] as $row) { 
 	?>
 
-  <span> <?= $row['c']['value'] ?> <?= $row['onderwerp']['value'] ?></span><br/>
+  <span> <?= $row['c']['value'] ?> <?= $row['onderwerplabel']['value'] ?></span><br/>
 
 
 
