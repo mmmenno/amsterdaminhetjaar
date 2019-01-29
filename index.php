@@ -49,6 +49,7 @@ if(isset($_GET['year'])){
 			margin-top: 30px;
 			font-size: 32px;
 			border-bottom: 4px solid #000;
+			cursor: pointer;
 		}
 		#map {
 			width: 100%;
@@ -93,6 +94,9 @@ if(isset($_GET['year'])){
 			font-size: 16px;
 			padding-left: 24px;
 		}
+		.content{
+			display: none;
+		}
 	</style>
 
 	
@@ -106,12 +110,12 @@ if(isset($_GET['year'])){
 <div class="container-fluid">
 	<div class="col-md-4">
 		<h2>Burgemeesters</h2>
-		<div id="burgemeesters"></div>
+		<div class="content" id="burgemeesters"></div>
 		
 
 
 		<h2>Vroedschap</h2>
-		<div id="vroedschap"></div>
+		<div class="content" id="vroedschap"></div>
 
 		<h2>Gebeurtenissen</h2>
 	</div>
@@ -124,10 +128,13 @@ if(isset($_GET['year'])){
 
 
 		<h2>Afgebeeld</h2>
-		<div id="afgebeeld"></div>
+		<div class="content" id="afgebeeld"></div>
+
+
 	</div>
 	<div class="col-md-4">
 		<h2>Gepubliceerde boeken</h2>
+		<div class="content" id="boeken"></div>
 
 
 		<h2>In de theaters</h2>
@@ -135,18 +142,21 @@ if(isset($_GET['year'])){
 
 
 		<h2>Tentoonstellingen</h2>
+		<div class="content" id="tentoonstellingen"></div>
 
 
 
 		<h2>Het weer</h2>
+		<div class="content" id="hetweer"></div>
 
 		<h2>3 vliegen in 1 klap</h2>
-
-		<ul>
-			<li>Publieksapplicatie, een snelle 'Couleur Locale Temporale', portal naar meer</li>
-			<li>Toont welke data beschikbaar is (alle data live uit open bronnen)</li>
-			<li>Aanjager voor crowdsource-projecten (samen missende data aanvullen)</li>
-		</ul>
+		<div class="content" id="drievliegen">
+			<ul>
+				<li>Publieksapplicatie, een snelle 'Couleur Locale Temporale', portal naar meer</li>
+				<li>Toont welke data beschikbaar is (alle data live uit open bronnen)</li>
+				<li>Aanjager voor crowdsource-projecten (samen missende data aanvullen)</li>
+			</ul>
+		</div>
 	</div>
 </div>
 
@@ -176,18 +186,24 @@ if(isset($_GET['year'])){
 
 	$(document).ready(function(){
 		
-		//$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>');
-		//$('#vroedschap').load('vroedschap.php?year=<?= $year ?>');
-
+		
 		$('h2').click(function(){
 			var div = $(this).next('div');
 			console.log(div.attr('id'));
 
 			if(div.html()==""){
 				console.log('leeg!');
+
 				if(div.attr('id') == "afgebeeld"){
-					console.log('maar daar gaan we wat aan doen!');
 					$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "vroedschap"){
+					$('#vroedschap').load('vroedschap.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "boeken"){
+					$('#boeken').load('boeken.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "tentoonstellingen"){
+					$('#tentoonstellingen').load('tentoonstellingen.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "hetweer"){
+					$('#hetweer').load('hetweer.php?year=<?= $year ?>');
 				}
 			}
 
