@@ -12,10 +12,10 @@ WHERE
   FILTER (SUBSTR(str(?wikipedia), 1, 25) = \"https://nl.wikipedia.org/\")
 }
  ?ambt pq:P580 ?start . 
- ?ambt pq:P582 ?eind . 
  BIND(year(?start) AS ?startjaar) .
- BIND(year(?eind) AS ?eindjaar) .
  FILTER(?startjaar <= " . $_GET['year'] . " )
+ ?ambt pq:P582 ?eind . 
+ BIND(year(?eind) AS ?eindjaar) .
  FILTER(?eindjaar >= " . $_GET['year'] . " )
  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],nl\". }
 } 
@@ -63,6 +63,18 @@ foreach ($data['results']['bindings'] as $row) {
 
 	<?php 
 } 
+
+if(count($data['results']['bindings'])<1 && $_GET['year'] > 2017){
+	?>
+
+	<a target="_blank" href="https://nl.wikipedia.org/wiki/Femke_Halsema"><strong>Femke Halsema</strong></a>
+	2018 - <br />
+
+	<?php
+}elseif(count($data['results']['bindings'])<1){
+
+	echo "geen burgemeesters gevonden - leef je uit op Wikidata!";
+}
 
 ?>
 
