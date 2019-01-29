@@ -204,6 +204,8 @@ if(isset($_GET['year'])){
 					$('#tentoonstellingen').load('tentoonstellingen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "hetweer"){
 					$('#hetweer').load('hetweer.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "burgemeesters"){
+					$('#burgemeesters').load('burgemeesters.php?year=<?= $year ?>');
 				}
 			}
 
