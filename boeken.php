@@ -64,5 +64,6 @@ foreach ($data['results']['bindings'] as $row) {
 ?>
 
 </div>
+<span>Sparql het zelf <a href="">via de kb.nl!</a></span>
 
 
