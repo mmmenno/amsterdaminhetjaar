@@ -97,6 +97,9 @@ if(isset($_GET['year'])){
 		.content{
 			display: none;
 		}
+		.list span {
+			margin-left:15px;
+		}
 	</style>
 
 	
@@ -201,7 +204,7 @@ if(isset($_GET['year'])){
 				}else if(div.attr('id') == "boeken"){
 					$('#boeken').load('boeken.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "onstage"){
-					$('#onstage').load('plays.php?year=<?= $year ?>');
+					$('#onstage').load('onstage.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "tentoonstellingen"){
 					$('#tentoonstellingen').load('tentoonstellingen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "hetweer"){
