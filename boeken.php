@@ -41,29 +41,32 @@ $data = json_decode($json,true);
 
 ?>
 
-<p>Totaal aantal boeken uitgegeven in Amsterdam: 
-  
- <?= $datacount['results']['bindings'][0]['c']['value'] ?>
+<p>Totaal aantal boeken uitgegeven in Amsterdam:
+
+  <?= $datacount['results']['bindings'][0]['c']['value'] ?>
 
 </p>
 
-<p>Met de volgende onderwerpen/genres:</p><div class="list">
+<p>Met de volgende onderwerpen/genres:</p>
+<div class="list">
 
-<?
+  <?
 
 foreach ($data['results']['bindings'] as $row) { 
 	?>
 
-  <span> <?= $row['c']['value'] ?> <?= $row['onderwerplabel']['value'] ?></span><br/>
+  <span>
+    <?= $row['c']['value'] ?>
+    <?= $row['onderwerplabel']['value'] ?></span><br />
 
 
 
-	<?php 
+  <?php 
 } 
 
 ?>
 
 </div>
-<span>Sparql het zelf <a href="">via de kb.nl!</a></span>
-
-
+<div class="broninfo mt-1">
+  <p>Sparql het zelf <a href="http://data.bibliotheken.nl/sparql">via de kb.nl!</a></p>
+</div>
