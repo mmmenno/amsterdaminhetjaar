@@ -28,76 +28,8 @@ if(isset($_GET['year'])){
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js" integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==" crossorigin=""></script>
 
-
-	<style>
-
-		@import url('https://fonts.googleapis.com/css?family=Cardo:700');
-
-		html, body{
-			height: 100%;
-			margin:0;
-			font-family: 'Cardo', serif;
-			font-size: 20px;
-		}
-		h1{
-			margin-top: 30px;
-			text-align: center;
-			font-size: 64px;
-			border-bottom: 4px solid #000;
-		}
-		h2{
-			margin-top: 30px;
-			font-size: 32px;
-			border-bottom: 4px solid #000;
-			cursor: pointer;
-		}
-		#map {
-			width: 100%;
-			height: 200px;
-			margin-bottom: 20px;
-		}
-		.leaflet-left .leaflet-control{
-			margin-top: 10px;
-			margin-left: 10px;
-		}
-		.leaflet-container .leaflet-control-attribution{
-			color: #000;
-		}
-		.leaflet-control-attribution a{
-			color: #000;
-		}
-		.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{
-			border: 2px solid #000;
-		}
-		.btn-primary{
-			margin-top: 20px;
-			background-color: #fff;
-			color: #000;
-			font-size: 20px;
-			border-color: #fff;
-		}
-		.btn-primary:hover{
-			background-color: #BC000C;
-			color: #fff;
-			border-color: #fff;
-		}
-		button:focus, input:focus, .btn-primary:focus {
-			outline:0;
-			background-color: #fff;
-			color: #000;
-			border-color: #fff;
-		}
-		#afgebeeld img{
-			width: 100%;
-		}
-		ol{
-			font-size: 16px;
-			padding-left: 24px;
-		}
-		.content{
-			display: none;
-		}
-	</style>
+     <link rel="stylesheet" href="assets/styles.css" />
+	
 
 	
 </head>
@@ -109,7 +41,7 @@ if(isset($_GET['year'])){
 
 <div class="container-fluid">
 	<div class="col-md-4">
-		<h2>Burgemeesters</h2>
+		<h2>Burgemeester<span class="light">s</span></h2>
 		<div class="content" id="burgemeesters"></div>
 		
 
