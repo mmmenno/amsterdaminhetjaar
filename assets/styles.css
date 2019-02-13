@@ -73,6 +73,9 @@ ol{
 .content{
 	display: none;
 }
+.list span {
+	margin-left:15px;
+}
 .table>tbody>tr>td{
 	border-top:none;
 	border-bottom: 1px solid #ccc;
