@@ -119,11 +119,11 @@ if($_GET['year']>1900){
 	echo '<a target="_blank" href="burgemeesters/index.php?from=1900&until=2020">Bekijk alle burgemeesters na 1900</a>.';
 }elseif($_GET['year']>1800){
 	echo '<a target="_blank" href="burgemeesters/index.php?from=1800&until=1900">Bekijk alle 19e-eeuwse burgemeesters</a>.';
-}elseif($_GET['year']>1900){
+}elseif($_GET['year']>1700){
 	echo '<a target="_blank" href="burgemeesters/index.php?from=1700&until=1800">Bekijk alle 18e-eeuwse burgemeesters</a>.';
-}elseif($_GET['year']>1900){
+}elseif($_GET['year']>1600){
 	echo '<a target="_blank" href="burgemeesters/index.php?from=1600&until=1700">Bekijk alle 17e-eeuwse burgemeesters</a>.';
-}elseif($_GET['year']>1812){
+}elseif($_GET['year']>1000){
 	echo '<a target="_blank" href="burgemeesters/index.php?from=1000&until=1600">Bekijk alle burgemeesters voor 1600</a>.';
 }
 echo '</p>';

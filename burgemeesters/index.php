@@ -63,7 +63,30 @@ if($until > 2017){
 }
 
 //print_r($data);
-$rows = $data['results']['bindings'];
+$allrows = $data['results']['bindings'];
+$rows = array();
+
+foreach ($allrows as $k => $v) {
+	if(!array_key_exists($v['m']['value'], $rows)){
+		$rows[$v['m']['value']] = $v;
+	}
+	if($v['startjaar']['value'] == $v['eindjaar']['value']){
+		$period = $v['startjaar']['value'];
+	}else{
+		$period = $v['startjaar']['value'] . "-" . $v['eindjaar']['value'];
+	}
+	if(isset($rows[$v['m']['value']]['periods'])){
+		if(!in_array($period,$rows[$v['m']['value']]['periods'])){
+			$rows[$v['m']['value']]['periods'][] = $period;
+		}
+	}else{
+		$rows[$v['m']['value']]['periods'][] = $period;
+	}
+}
+$rows = array_values($rows); // nice, wdids as keys, but we need them numeric later on
+
+//print_r($rows);
+
 $onethird = ceil(count($rows)/3);
 $twothirds = $onethird*2;
 
@@ -127,13 +150,14 @@ $twothirds = $onethird*2;
 				}else{
 					$link = $rows[$i]['m']['value'];
 				}
+				$allyears = implode(", ",$rows[$i]['periods']);
 				?>
-				<h2><?= $rows[$i]['startjaar']['value'] ?> - <?= $rows[$i]['eindjaar']['value'] ?></h2>
-				
-				<h3><a target="_blank" href="<?= $link ?>">
+				<h2><a target="_blank" href="<?= $link ?>">
 					<?= $rows[$i]['mLabel']['value'] ?>
-				</a></h3>
+				</a></h2>
 
+				<p class="smaller"><strong><?= $allyears ?></strong></p>
+				
 				<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
 				
 				<?php 
@@ -150,13 +174,14 @@ $twothirds = $onethird*2;
 				}else{
 					$link = $rows[$i]['m']['value'];
 				}
+				$allyears = implode(", ",$rows[$i]['periods']);
 				?>
-				<h2><?= $rows[$i]['startjaar']['value'] ?> - <?= $rows[$i]['eindjaar']['value'] ?></h2>
-				
-				<h3><a target="_blank" href="<?= $link ?>">
+				<h2><a target="_blank" href="<?= $link ?>">
 					<?= $rows[$i]['mLabel']['value'] ?>
-				</a></h3>
+				</a></h2>
 
+				<p class="smaller"><strong><?= $allyears ?></strong></p>
+				
 				<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
 				
 				<?php 
@@ -173,13 +198,14 @@ $twothirds = $onethird*2;
 				}else{
 					$link = $rows[$i]['m']['value'];
 				}
+				$allyears = implode(", ",$rows[$i]['periods']);
 				?>
-				<h2><?= $rows[$i]['startjaar']['value'] ?> - <?= $rows[$i]['eindjaar']['value'] ?></h2>
-				
-				<h3><a target="_blank" href="<?= $link ?>">
+				<h2><a target="_blank" href="<?= $link ?>">
 					<?= $rows[$i]['mLabel']['value'] ?>
-				</a></h3>
+				</a></h2>
 
+				<p class="smaller"><strong><?= $allyears ?></strong></p>
+				
 				<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
 				
 				<?php 

@@ -41,7 +41,7 @@ if(isset($_GET['year'])){
 
 <div class="container-fluid">
 	<div class="col-md-4">
-		<h2>Burgemeester<span class="light">s</span></h2>
+		<h2>Burgemeesters</h2>
 		<div class="content" id="burgemeesters"></div>
 		
 
