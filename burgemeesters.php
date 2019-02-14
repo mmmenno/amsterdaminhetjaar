@@ -128,7 +128,7 @@ if($_GET['year']>1900){
 }
 echo '</p>';
 
-echo '<p class="smaller"><a target="_blank" href="' . $queryurl . '">SPARQL het zelf</a>.</p>';
+echo '<p class="smaller">Of, <a target="_blank" href="' . $queryurl . '">SPARQL het zelf</a>, op Wikidata.</p>';
 
 ?>
 

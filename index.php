@@ -53,13 +53,17 @@ if(isset($_GET['year'])){
 	</div>
 	<div class="col-md-4">
 		<h2>Stratenplan</h2>
-		<div id='map'></div>
-
+		<div class="content" style="display: block;" id="kaart">
+			<div id='map'></div>
+			<p class="smaller">
+				Een grotere kaart kleurt de leeftijd der straten in <?= $year ?>
+			</p>
+		</div>
 
 		<h2>Wijkindeling</h2>
 
 
-		<h2>Afgebeeld</h2>
+		<h2>Straatbeelden</h2>
 		<div class="content" id="afgebeeld"></div>
 
 
@@ -69,19 +73,12 @@ if(isset($_GET['year'])){
 		<div class="content" id="boeken"></div>
 
 
-		<h2>In de theaters</h2>
+		<h2>In de Schouwburg</h2>
 		<div class="content" id="onstage"></div>
 
 
-		<h2>Tentoonstellingen</h2>
-		<div class="content" id="tentoonstellingen"></div>
 
-
-
-		<h2>Het weer</h2>
-		<div class="content" id="hetweer"></div>
-
-		<h2>3 vliegen in 1 klap</h2>
+		<h2>Over deze website</h2>
 		<div class="content" id="drievliegen">
 			<ul>
 				<li>Publieksapplicatie, een snelle 'Couleur Locale Temporale', portal naar meer</li>
@@ -89,6 +86,10 @@ if(isset($_GET['year'])){
 				<li>Aanjager voor crowdsource-projecten (samen missende data aanvullen)</li>
 			</ul>
 		</div>
+
+
+		<h2>Tentoonstellingen</h2>
+		<div class="content" id="tentoonstellingen"></div>
 	</div>
 </div>
 
@@ -97,7 +98,7 @@ if(isset($_GET['year'])){
 <script>
 
 	var center = [52.369716,4.900029];
-	var zoomlevel = 14;
+	var zoomlevel = 12;
 	
 	var map = L.map('map', {
         center: center,
@@ -115,6 +116,9 @@ if(isset($_GET['year'])){
 		ext: 'png'
 	}).addTo(map);
 
+	
+
+	
 
 	$(document).ready(function(){
 		
@@ -146,7 +150,62 @@ if(isset($_GET['year'])){
 			div.toggle();
 		});
 
+		refreshMap();
+
 	});
+
+	function refreshMap(){
+		$.ajax({
+	        type: 'GET',
+	        url: '/data/geojson/streetsperyear.php?year=<?= $year ?>',
+	        dataType: 'json',
+	        success: function(jsonData) {
+
+	            if (typeof streets !== 'undefined') {
+				    map.removeLayer(streets);
+				}
+
+	            streets = L.geoJson(null, {
+	            	pointToLayer: function (feature, latlng) {                    
+		                return new L.CircleMarker(latlng, {
+		                    radius: 3,
+		                    color: "#E95C90",
+		                    weight: 1,
+		                    opacity: 1,
+		                    fillOpacity: 0.3
+		                });
+		            },
+				    style: function(feature) {
+				        return {
+				            color: '#E95C90',
+				            weight: 1,
+				            opacity: 1,
+				            clickable: true
+				        };
+				    },
+				    onEachFeature: function(feature, layer) {
+						layer.on({
+					        click: whenStreetClicked
+					    });
+				    }
+				}).addTo(map);
+
+	            streets.addData(jsonData).bringToFront();
+			    
+
+	            //map.fitBounds(streets);
+	            
+
+	        },
+	        error: function() {
+	            console.log('Error loading data');
+	        }
+	    });
+	}
+
+	function whenStreetClicked(){
+		console.log('clicked');
+	}
 
 </script>
 

@@ -8,11 +8,12 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX hg: <http://rdf.histograph.io/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT DISTINCT ?werk (SAMPLE(?titel) AS ?titel) (SAMPLE(?img) AS ?img) ?set WHERE {
+SELECT DISTINCT ?werk (SAMPLE(?titel) AS ?titel) (SAMPLE(?img) AS ?img) (SAMPLE(?straatnaam) AS ?naam) ?set WHERE {
   ?werk sem:hasBeginTimeStamp ?begin .
   ?werk void:inDataset ?set .
   ?werk dct:spatial ?street .
   ?street a hg:Street .
+  ?street skos:prefLabel ?straatnaam .
   BIND(IF(COALESCE(xsd:datetime(str(?begin)), "!") != "!",
      year(xsd:dateTime(str(?begin))),"3"^^xsd:integer) AS ?jaar ) .
   ?werk dc:title ?titel .
@@ -20,7 +21,7 @@ SELECT DISTINCT ?werk (SAMPLE(?titel) AS ?titel) (SAMPLE(?img) AS ?img) ?set WHE
   FILTER(?jaar=' . $_GET['year'] . ')
 }
 GROUP BY ?werk ?set
-LIMIT 5';
+LIMIT 7';
 
 //echo $sparqlquery;
 
@@ -40,15 +41,23 @@ $checknames = array();
 $checkimgs = array();
 $imgs = array();
 
+$i=0;
 foreach ($data['results']['bindings'] as $row) { 
-	?>
+  $i++;
+  if($i<7){
+  	?>
 
-	<a target="_blank" href="<?= $row['werk']['value'] ?>"><img src="<?= $row['img']['value'] ?>"></a>
-	<strong><?= $row['titel']['value'] ?></strong>
-	</div>
+  	<a target="_blank" href="<?= $row['werk']['value'] ?>" title="<?= $row['titel']['value'] ?> | <?= $row['naam']['value'] ?>"><img src="<?= $row['img']['value'] ?>"></a>
+  	
 
-	<?php 
+  	<?php 
+  }else{
+    ?>
+      <p class="smaller">Doorzoek de AdamNet collecties op <a target="_blank" href="">meer straatbeelden uit <?= $_GET['year'] ?></a></p>
+    <?php
+  }
 } 
+
 
 ?>
 
