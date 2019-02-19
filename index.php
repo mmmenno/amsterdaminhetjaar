@@ -29,14 +29,31 @@ if(isset($_GET['year'])){
     <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js" integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==" crossorigin=""></script>
 
      <link rel="stylesheet" href="assets/styles.css" />
+
+	 <link rel="stylesheet" href="assets/timeliny.css" />
+
 	
 
 	
 </head>
 <body>
+<div id="timeline-wrapper"><div id="timeline">
+
+	<?php 
+	foreach (range(1500, date("Y")) as $y) {
+		if($y == $year) {
+			echo "<div data-year='{$y}' class='active'></div>";
+		} else {
+			echo "<div data-year='{$y}'></div>";
+		}
+	}
+	
+	?>
+</div></div>
 
 <div class="container-fluid">
-	<h1>Amsterdam in <?= $year ?></h1>
+	<h1>Amsterdam in <span class="clickYear" for="yearBox"><?= $year ?></span><input value="" type="text" id="yearBox" name="yearBox" class="blur" style="max-width:180px;" hidden></h1>
+
 </div>
 
 <div class="container-fluid">
@@ -93,7 +110,7 @@ if(isset($_GET['year'])){
 	</div>
 </div>
 
-
+<script src="assets/jquery.timeliny.js"></script>
 
 <script>
 
@@ -121,6 +138,25 @@ if(isset($_GET['year'])){
 	
 
 	$(document).ready(function(){
+
+		$(function() {
+			$('#timeline').timeliny({
+				order: 'asc',
+				className: 'timeliny',
+				wrapper: '<div class="timeliny-wrapper"></div>',
+				boundaries: 20,
+				animationSpeed: 1500,
+				hideBlankYears: false,
+				onInit: function() {},
+				onDestroy: function() {},
+				afterLoad: function(currYear) {},
+				onLeave: function(currYear, nextYear) {},
+				afterChange: function(currYear) {
+					location.replace(`?year=${currYear}`)
+				},
+				afterResize: function() {}
+			});
+		});
 		
 		
 		$('h2').click(function(){
@@ -206,6 +242,28 @@ if(isset($_GET['year'])){
 	function whenStreetClicked(){
 		console.log('clicked');
 	}
+
+	$('.clickYear').click(function () {
+		$(this).hide();
+		$('#' + $(this).attr('for'))
+						.val($(this).text())
+						.toggleClass("form-control-year")
+						.show()
+						.focus();
+	});
+
+	$('.blur').blur(function () {
+		$(this)
+			.hide()
+			.toggleClass("form-control-year");
+		var myid = (this).id;
+		$('span[for=' + myid + ']')
+			.text($(this).val())
+			.show();
+
+		var changedYear = $(this).val();
+		location.replace(`?year=${changedYear}`);
+	});
 
 </script>
 

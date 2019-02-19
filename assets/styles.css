@@ -90,3 +90,7 @@ ol{
 .light{
 	color: #ccc;
 }
+
+.clickYear {
+    cursor: pointer;
+}
