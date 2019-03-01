@@ -37,7 +37,7 @@ if(isset($_GET['year'])){
 	
 </head>
 <body>
-<div id="timeline-wrapper"><div id="timeline">
+<div id="timeline-wrapper"><div id="notimeline">
 
 	<?php 
 	foreach (range(1500, date("Y")) as $y) {
@@ -52,7 +52,7 @@ if(isset($_GET['year'])){
 </div></div>
 
 <div class="container-fluid">
-	<h1>Amsterdam in <span class="clickYear" for="yearBox"><?= $year ?></span><input value="" type="text" id="yearBox" name="yearBox" class="blur" style="max-width:180px;" hidden></h1>
+	<h1>Amsterdam in <input value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:160px;"></h1>
 
 </div>
 
@@ -243,26 +243,15 @@ if(isset($_GET['year'])){
 		console.log('clicked');
 	}
 
-	$('.clickYear').click(function () {
-		$(this).hide();
-		$('#' + $(this).attr('for'))
-						.val($(this).text())
-						.toggleClass("form-control-year")
-						.show()
-						.focus();
+	$('#yearBox').change(function(event){
+		var gotoyear = $('#yearBox').val();
+		location.href = 'index.php?year=' + gotoyear;
 	});
-
-	$('.blur').blur(function () {
-		$(this)
-			.hide()
-			.toggleClass("form-control-year");
-		var myid = (this).id;
-		$('span[for=' + myid + ']')
-			.text($(this).val())
-			.show();
-
-		var changedYear = $(this).val();
-		location.replace(`?year=${changedYear}`);
+	$('#yearBox').keypress(function(event){
+		if(event.keyCode == 13){
+			var gotoyear = $('#yearBox').val();
+			location.href = 'index.php?year=' + gotoyear;
+		}
 	});
 
 </script>

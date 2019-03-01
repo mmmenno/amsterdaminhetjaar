@@ -8,7 +8,7 @@ html, body{
 	margin:0;
 	padding-bottom: 40px;
 	font-family: 'PT Sans', sans-serif;
-	font-size: 20px;
+	font-size: 18px;
 }
 .smaller{
 	font-size: 16px;
@@ -90,7 +90,20 @@ ol{
 .light{
 	color: #ccc;
 }
-
+.nrof{
+	width: 60px; 
+	color: #000; 
+	font-weight: bold;
+	height: 44px; 
+	padding-top: 6px;
+	background-color: #EBEBEB; 
+	text-align: center; 
+	vertical-align: middle;
+}
+input#yearBox, input#yearBox:focus{
+    outline: none;
+	border:none;
+}
 .clickYear {
     cursor: pointer;
 }
