@@ -1,5 +1,14 @@
 <?php
 
+if($_GET['year']>1795){
+	?>
+		<p class="smaller">De vroedschap werd in 1795 opgeheven</p>
+
+
+	<?php
+	die;
+}
+
 $sparqlQueryString = <<< 'SPARQL'
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -31,6 +40,10 @@ GROUP BY ?m ?mLabel ?startjaar ?eindjaar
 ORDER BY ?startjaar
 ";
 
+
+$queryurl = "https://query.wikidata.org/#" . rawurlencode($sparqlQueryString);
+
+
 $opts = [
 		    'http' => [
 		        'method' => 'GET',
@@ -54,18 +67,20 @@ $checkimgs = array();
 $imgs = array();
 ?>
 
-<ol>
+<table class="table">
 <?php
 foreach ($data['results']['bindings'] as $row) { 
 	?>
-	<li>
+	<tr><td>
 	<a target="_blank" href="<?= $row['m']['value'] ?>"><strong><?= $row['mLabel']['value'] ?></strong></a>
-	<?= $row['startjaar']['value'] ?> - <?= $row['eindjaar']['value'] ?>
-	</li>
+	<span class="smaller"><?= $row['startjaar']['value'] ?> - <?= $row['eindjaar']['value'] ?></span>
+	</td></tr>
 
 	<?php 
 } 
 
 ?>
-</ol>
+</table>
 
+
+<p class="smaller">Deze <?= count($data['results']['bindings']) ?> vroedschapsleden (gesorteerd naar vroedschapssenioriteit) komen uit Wikidata, je kunt ze daar <a target="_blank" href="<?= $queryurl ?>">zelf SPARQLen</a></p>

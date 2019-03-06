@@ -52,7 +52,7 @@ if(isset($_GET['year'])){
 </div></div>
 
 <div class="container-fluid">
-	<h1>Amsterdam in <input value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:160px;"></h1>
+	<h1>Amsterdam in <input autofocus value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:160px;"></h1>
 
 </div>
 
@@ -67,17 +67,25 @@ if(isset($_GET['year'])){
 		<div class="content" id="vroedschap"></div>
 
 		<h2>Gebeurtenissen</h2>
+		<div class="content" id="gebeurtenissen">
+			<p class="smaller">Tja, een gebeurtenissenoverzicht lijkt nog niet voorhanden te zijn, dat wil zeggen niet in gestructureerde vorm.</p>
+		</div>
+
+
 	</div>
 	<div class="col-md-4">
 		<h2>Stratenplan</h2>
 		<div class="content" style="display: block;" id="kaart">
 			<div id='map'></div>
 			<p class="smaller">
-				Een grotere kaart kleurt de leeftijd der straten in <?= $year ?>
+				Binnenkort: een grotere kaart kleurt de leeftijd der straten in <?= $year ?>
 			</p>
 		</div>
 
 		<h2>Wijkindeling</h2>
+		<div class="content" id="wijkindeling">
+			<p class="smaller">Voor de wijken verwijzen we nu nog even naar <a target="_blank" href="https://adamlink.nl/geo/districts">Adamlink.nl/geo/districts</a>. Daar vind je overzichten van de huidige wijken en buurten, maar ook de 19e-eeuwse buurtindeling en de indeling van 1909.</p>
+		</div>
 
 
 		<h2>Straatbeelden</h2>
@@ -97,16 +105,18 @@ if(isset($_GET['year'])){
 
 		<h2>Over deze website</h2>
 		<div class="content" id="drievliegen">
-			<ul>
-				<li>Publieksapplicatie, een snelle 'Couleur Locale Temporale', portal naar meer</li>
-				<li>Toont welke data beschikbaar is (alle data live uit open bronnen)</li>
-				<li>Aanjager voor crowdsource-projecten (samen missende data aanvullen)</li>
-			</ul>
+			<p class="smaller">Met deze site willen we een snel overzicht geven van de Amsterdamse geschiedenis in willekeurig welk jaar - wie heeft het voor 't zeggen, hoe ziet de stad eruit en wat gebeurt er zoal op cultureel gebied?</p>
+
+			<p class="smaller">We gebruiken daarvoor online databronnen - het (beschikbaar) maken van goede data is een belangrijke doelstelling van de Amsterdam Time Machine. We verwijzen daarbij zoveel mogelijk naar API's en SPARQL endpoints. Vaardigheid in het schrijven van SPARQL queries is voor historici in de nabije toekomst waarschijnlijk net zo belangrijk als iets op kunnen diepen uit een archief.</p>
+
+			<p class="smaller">Niet alle data is compleet. We laten zien waar we samen verder kunnen (en moeten) bouwen aan het Amsterdamse datalandschap. Iedereen kan een bijdrage leveren - door een eigen dataset toegankelijker te maken bijvoorbeeld, of door op Wikidata data aan te vullen en verbeteren.</p>
 		</div>
 
 
 		<h2>Tentoonstellingen</h2>
-		<div class="content" id="tentoonstellingen"></div>
+		<div class="content" id="tentoonstellingen">
+			<p class="smaller">We zouden hier graag laten zien welke tentoonstellingen er in een bepaald jaar te zien waren en kijken nu of we dit voor elkaar kunnen krijgen. Suggesties en - liever nog - bijdragen zijn welkom!</p>
+		</div>
 	</div>
 </div>
 
@@ -166,6 +176,8 @@ if(isset($_GET['year'])){
 			if(div.html()==""){
 				console.log('leeg!');
 
+				div.append('<div class="loader"></div>');
+
 				if(div.attr('id') == "afgebeeld"){
 					$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "vroedschap"){
@@ -174,12 +186,10 @@ if(isset($_GET['year'])){
 					$('#boeken').load('boeken.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "onstage"){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
-				}else if(div.attr('id') == "tentoonstellingen"){
-					$('#tentoonstellingen').load('tentoonstellingen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "hetweer"){
 					$('#hetweer').load('hetweer.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "burgemeesters"){
-					$('#burgemeesters').load('burgemeesters.php?year=<?= $year ?>');
+					$('#burgemeesters').load('burgemeesters/burgemeesters.php?year=<?= $year ?>');
 				}
 			}
 
