@@ -66,6 +66,9 @@ if(isset($_GET['year'])){
 		<h2>Vroedschap</h2>
 		<div class="content" id="vroedschap"></div>
 
+		<h2>Gebouwd en verdwenen</h2>
+		<div class="content" id="gebouwdverdwenen"></div>
+
 		<h2>Gebeurtenissen</h2>
 		<div class="content" id="gebeurtenissen">
 			<p class="smaller">Tja, een gebeurtenissenoverzicht lijkt nog niet voorhanden te zijn, dat wil zeggen niet in gestructureerde vorm.</p>
@@ -75,12 +78,7 @@ if(isset($_GET['year'])){
 	</div>
 	<div class="col-md-4">
 		<h2>Stratenplan</h2>
-		<div class="content" style="display: block;" id="kaart">
-			<div id='map'></div>
-			<p class="smaller">
-				Binnenkort: een grotere kaart kleurt de leeftijd der straten in <?= $year ?>
-			</p>
-		</div>
+		<div class="content" id="kaart"></div>
 
 		<h2>Wijkindeling</h2>
 		<div class="content" id="wijkindeling">
@@ -124,25 +122,6 @@ if(isset($_GET['year'])){
 
 <script>
 
-	var center = [52.369716,4.900029];
-	var zoomlevel = 12;
-	
-	var map = L.map('map', {
-        center: center,
-        zoom: zoomlevel,
-        minZoom: 6,
-        maxZoom: 20,
-        scrollWheelZoom: false
-    });
-
-	L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-	    attribution: 'Tiles <a href="http://stamen.com">Stamen Design</a> - Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	    subdomains: 'abcd',
-		minZoom: 0,
-		maxZoom: 20,
-		ext: 'png'
-	}).addTo(map);
-
 	
 
 	
@@ -180,27 +159,57 @@ if(isset($_GET['year'])){
 
 				if(div.attr('id') == "afgebeeld"){
 					$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "kaart"){
+					$('#kaart').load('stratenplan/stratenplan.php', function(){
+						createMap();
+						refreshMap();
+					});
+					console.log('just clicked...');
+					
 				}else if(div.attr('id') == "vroedschap"){
 					$('#vroedschap').load('vroedschap.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "boeken"){
 					$('#boeken').load('boeken.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "onstage"){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
-				}else if(div.attr('id') == "hetweer"){
-					$('#hetweer').load('hetweer.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "burgemeesters"){
 					$('#burgemeesters').load('burgemeesters/burgemeesters.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "gebouwdverdwenen"){
+					$('#gebouwdverdwenen').load('gebouwdverdwenen/gebouwdverdwenen.php?year=<?= $year ?>');
 				}
 			}
 
 			div.toggle();
 		});
 
-		refreshMap();
 
 	});
 
+	function createMap(){
+		center = [52.369716,4.900029];
+		zoomlevel = 12;
+		
+		map = L.map('map', {
+	        center: center,
+	        zoom: zoomlevel,
+	        minZoom: 6,
+	        maxZoom: 20,
+	        scrollWheelZoom: false
+	    });
+
+		L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+		    attribution: 'Tiles <a href="http://stamen.com">Stamen Design</a> - Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+		    subdomains: 'abcd',
+			minZoom: 0,
+			maxZoom: 20,
+			ext: 'png'
+		}).addTo(map);
+
+	
+	}
+
 	function refreshMap(){
+		console.log('start refreshing...');
 		$.ajax({
 	        type: 'GET',
 	        url: '/data/geojson/streetsperyear.php?year=<?= $year ?>',
