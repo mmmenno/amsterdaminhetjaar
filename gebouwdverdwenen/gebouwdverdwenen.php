@@ -1,7 +1,7 @@
 <?php
 
 $endyear = $_GET['year']+1;
-$fromyear = $endyear-5;
+$fromyear = $endyear-6;
 
 $sparqlQueryString = '
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
