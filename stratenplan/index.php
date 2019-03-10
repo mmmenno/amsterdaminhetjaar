@@ -74,12 +74,13 @@ if(isset($_GET['year'])){
 			<h2>Over de data</h2>
 
 			<p class="smaller">
-				Amsterdam heeft in zijn bestaan meer dan 6.500 straten gekend. Die allemaal precies dateren is lastig. We hebben dat gedaan op basis van historische kaarten, de aanleg van wijken waarbinnen straten liggen, vermeldingen in raadsbesluiten, vermeldingen in andere bronnen en soms een beetje uit de losse hand. 
+				Amsterdam heeft in zijn bestaan meer dan 6.500 straten gekend. Die allemaal precies dateren is lastig. We hebben dat gedaan op basis van historische kaarten, de aanleg van wijken waarbinnen straten liggen, vermeldingen in raadsbesluiten, vermeldingen in andere bronnen en soms een beetje uit de losse hand. We zullen er nog wel even aan schaven.
 			</p>
 
 			<p class="smaller">
-				Dit is, zoals dat heet, een work in progress. We blijven er aan schaven. 
+				Je kunt <a href="https://adamlink.nl/data/geojson/streetsperyear/1900" target="_blank">het stratenplan van dit jaar als geojson</a> pakken, mocht je er iets mee willen. 
 			</p>
+
 		</div>
 
 	</div>
@@ -162,7 +163,7 @@ if(isset($_GET['year'])){
 	            streets.addData(jsonData).bringToFront();
 			    
 
-	            map.fitBounds(streets.getBounds());
+	            //map.fitBounds(streets.getBounds());
 	            
 	            $('#straatinfo').html('');
 	        },

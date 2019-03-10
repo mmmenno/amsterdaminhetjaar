@@ -160,12 +160,10 @@ if(isset($_GET['year'])){
 				if(div.attr('id') == "afgebeeld"){
 					$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "kaart"){
-					$('#kaart').load('stratenplan/stratenplan.php', function(){
+					$('#kaart').load('stratenplan/stratenplan.php?year=<?= $year ?>', function(){
 						createMap();
 						refreshMap();
 					});
-					console.log('just clicked...');
-					
 				}else if(div.attr('id') == "vroedschap"){
 					$('#vroedschap').load('vroedschap.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "boeken"){
