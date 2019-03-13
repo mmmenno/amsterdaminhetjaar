@@ -74,11 +74,11 @@ if(isset($_GET['year'])){
 			<h2>Over de data</h2>
 
 			<p class="smaller">
-				Amsterdam heeft in zijn bestaan meer dan 6.500 straten gekend. Die allemaal precies dateren is lastig. We hebben dat gedaan op basis van historische kaarten, de aanleg van wijken waarbinnen straten liggen, vermeldingen in raadsbesluiten, vermeldingen in andere bronnen en soms een beetje uit de losse hand. We zullen er nog wel even aan schaven.
+				Amsterdam heeft in zijn bestaan meer dan 6.500 straten gekend. Die allemaal precies dateren is lastig, <a href="https://github.com/mmmenno/asap" target="_blank">deze bronnen</a> hebben daarbij geholpen. Het kan beter, hulp daarbij is altijd welkom.
 			</p>
 
 			<p class="smaller">
-				Je kunt <a href="https://adamlink.nl/data/geojson/streetsperyear/1900" target="_blank">het stratenplan van dit jaar als geojson</a> pakken, mocht je er iets mee willen. 
+				Je kunt <a href="https://adamlink.nl/data/geojson/streetsperyear/<?= $year ?>" target="_blank">het stratenplan van dit jaar als geojson</a> pakken, mocht je er iets mee willen. 
 			</p>
 
 		</div>
@@ -124,6 +124,16 @@ if(isset($_GET['year'])){
 			ext: 'png'
 		}).addTo(map);
 
+		map.on('zoomend', function () {
+		    currentZoom = map.getZoom();
+		    if (currentZoom < 14) {
+		        streets.setStyle({weight: 1});
+		    } else if (currentZoom < 16){
+		        streets.setStyle({weight: 2});
+		    } else {
+		        streets.setStyle({weight: 6});
+		    }
+		});
 	
 	}
 
@@ -149,7 +159,6 @@ if(isset($_GET['year'])){
 				        return {
 				            color: getColor(feature.properties.street_since_min),
 				            weight: 2,
-				            opacity: 1,
 				            clickable: true
 				        };
 				    },
@@ -172,6 +181,8 @@ if(isset($_GET['year'])){
 	        }
 	    });
 	}
+
+	
 
 	function getColor(streetyear) {
 		var now = <?= $year ?>;
