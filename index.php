@@ -185,7 +185,7 @@ if(isset($_GET['year'])){
 
 	function createMap(){
 		center = [52.369716,4.900029];
-		zoomlevel = 12;
+		zoomlevel = 13;
 		
 		map = L.map('map', {
 	        center: center,
@@ -195,9 +195,9 @@ if(isset($_GET['year'])){
 	        scrollWheelZoom: false
 	    });
 
-		L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
-		    attribution: 'Tiles <a href="http://stamen.com">Stamen Design</a> - Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-		    subdomains: 'abcd',
+		L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+			id: 'CartoDB.DarkMatterNoLabels',
 			minZoom: 0,
 			maxZoom: 20,
 			ext: 'png'
@@ -211,7 +211,7 @@ if(isset($_GET['year'])){
 		$.ajax({
 	        type: 'GET',
 	        url: '/data/geojson/streetsperyear.php?year=<?= $year ?>',
-	        dataType: 'json',
+		    dataType: 'json',
 	        success: function(jsonData) {
 
 	            if (typeof streets !== 'undefined') {
@@ -220,20 +220,14 @@ if(isset($_GET['year'])){
 
 	            streets = L.geoJson(null, {
 	            	pointToLayer: function (feature, latlng) {                    
-		                return new L.CircleMarker(latlng, {
-		                    radius: 3,
-		                    color: "#E95C90",
-		                    weight: 1,
-		                    opacity: 1,
-		                    fillOpacity: 0.3
-		                });
+		                return false;
 		            },
 				    style: function(feature) {
 				        return {
-				            color: '#E95C90',
+				            color: getColor(feature.properties.street_since_min),
 				            weight: 1,
 				            opacity: 1,
-				            clickable: true
+				            clickable: false
 				        };
 				    },
 				    onEachFeature: function(feature, layer) {
@@ -255,6 +249,20 @@ if(isset($_GET['year'])){
 	        }
 	    });
 	}
+
+	function getColor(streetyear) {
+		var now = <?= $year ?>;
+		var d = now - streetyear;
+	    return d > 400 ? '#a50026' :
+	           d > 240 ? '#f46d43' :
+	           d > 120  ? '#fdae61' :
+	           d > 60  ? '#fee090' :
+	           d > 30  ? '#ffffbf' :
+	           d > 20  ? '#abd9e9' :
+	           d > 10   ? '#74add1' :
+	                     '#4575b4';
+	}
+
 
 	function whenStreetClicked(){
 		console.log('clicked');
