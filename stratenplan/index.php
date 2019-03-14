@@ -41,6 +41,9 @@ if(isset($_GET['year'])){
 			margin-top: 3px;
 			margin-right: 10px;
 		}
+		h2{
+			cursor: default;
+		}
 	</style>
 
 	
@@ -49,8 +52,9 @@ if(isset($_GET['year'])){
 
 
 <div class="container-fluid">
-	<h1>Stratenplan <input autofocus value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:160px;"></h1>
-
+	<div class="col-md-12">
+		<h2>Het stratenplan van Amsterdam in <input autofocus value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:80px;"></h2>
+	</div>
 </div>
 
 <div class="container-fluid">

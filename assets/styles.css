@@ -103,6 +103,7 @@ ol{
 input#yearBox, input#yearBox:focus{
     outline: none;
 	border:none;
+	background-color: #FFDCE8;
 }
 .clickYear {
     cursor: pointer;
