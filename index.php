@@ -37,6 +37,10 @@ if(isset($_GET['year'])){
 	
 </head>
 <body>
+
+<div id="bigimg"></div>
+
+
 <div id="timeline-wrapper"><div id="notimeline">
 
 	<?php 
@@ -158,7 +162,9 @@ if(isset($_GET['year'])){
 				div.append('<div class="loader"></div>');
 
 				if(div.attr('id') == "afgebeeld"){
-					$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>');
+					$('#afgebeeld').load('streetdepictions.php?year=<?= $year ?>',function(){
+						//setImgClick();
+					});
 				}else if(div.attr('id') == "kaart"){
 					$('#kaart').load('stratenplan/stratenplan.php?year=<?= $year ?>', function(){
 						createMap();
@@ -173,15 +179,40 @@ if(isset($_GET['year'])){
 				}else if(div.attr('id') == "burgemeesters"){
 					$('#burgemeesters').load('burgemeesters/burgemeesters.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "gebouwdverdwenen"){
-					$('#gebouwdverdwenen').load('gebouwdverdwenen/gebouwdverdwenen.php?year=<?= $year ?>');
+					$('#gebouwdverdwenen').load('gebouwdverdwenen/gebouwdverdwenen.php?year=<?= $year ?>',function(){
+						//setImgClick();
+					});
 				}
 			}
 
 			div.toggle();
 		});
 
+		//setImgClick();
+
+		$('#bigimg').click(function(){
+			$(this).hide();
+		});
 
 	});
+
+	function setImgClick(){
+		$('a img').click(function (e){
+			e.preventDefault();
+			var imglink = $(this).parent('a').attr('href');
+			var imgurl = $(this).attr('src');
+			var imgtitle = $(this).parent('a').attr('title');
+			var html = '<div class="bigimgcontent">';
+			html += '<img src="' + imgurl + '" /><br />';
+			if(typeof imgtitle !== 'undefined'){
+				html += imgtitle + '<br />';
+			}
+			html += '<a target="_blank" href="' + imglink + '">bekijk op ' + imglink + '</a>';
+			html += '</div>';
+			$('#bigimg').html(html);
+			$('#bigimg').show();
+		});
+	}
 
 	function createMap(){
 		center = [52.369716,4.900029];
@@ -278,6 +309,7 @@ if(isset($_GET['year'])){
 			location.href = 'index.php?year=' + gotoyear;
 		}
 	});
+
 
 </script>
 
