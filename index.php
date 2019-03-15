@@ -41,6 +41,57 @@ if(isset($_GET['year'])){
 <div id="bigimg"></div>
 
 
+<div id="otheryears">
+	
+	<?php
+	$yrs = array();
+	$yr = $year;
+	for($i=0; $i<18; $i++){
+		if($i<3){
+			$yr--;
+		}elseif($i<7){
+			$yr-=5;
+		}elseif($i<10){
+			$yr-=10;
+		}elseif($i<14){
+			$yr-=20;
+		}else{
+			$yr-=30;
+		}
+		$yrs[] = $yr;
+	}
+	$yrs = array_reverse($yrs);
+	$yr = $year;
+	for($i=0; $i<18; $i++){
+		if($i<3){
+			$yr++;
+		}elseif($i<7){
+			$yr+=5;
+		}elseif($i<10){
+			$yr+=10;
+		}elseif($i<14){
+			$yr+=20;
+		}else{
+			$yr+=30;
+		}
+		if($yr<date("Y")){
+			$yrs[] = $yr;
+		}else{
+			$yrs[] = $yr;
+		}
+		
+	}
+	
+	foreach ($yrs as $k => $v) {
+		echo '<a href="?year=' . $v . '">' . $v . '</a>';
+	}
+	?>
+
+	
+</div>
+
+
+
 <div id="timeline-wrapper"><div id="notimeline">
 
 	<?php 
@@ -56,7 +107,7 @@ if(isset($_GET['year'])){
 </div></div>
 
 <div class="container-fluid">
-	<h1>Amsterdam in <input autofocus value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:160px;"></h1>
+	<h1>Amsterdam in <input value="<?= $year ?>" type="text" id="yearBox" name="yearBox" style="max-width:160px;"></h1>
 
 </div>
 
