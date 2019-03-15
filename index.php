@@ -173,7 +173,7 @@ if(isset($_GET['year'])){
 				}else if(div.attr('id') == "vroedschap"){
 					$('#vroedschap').load('vroedschap.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "boeken"){
-					$('#boeken').load('boeken.php?year=<?= $year ?>');
+					$('#boeken').load('boeken/boeken.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "onstage"){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "burgemeesters"){
