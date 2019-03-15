@@ -120,6 +120,9 @@ ol{
 	text-align: center; 
 	vertical-align: middle;
 }
+.nroftd{
+	width: 70px;
+}
 input#yearBox, input#yearBox:focus{
     outline: none;
 	border:none;

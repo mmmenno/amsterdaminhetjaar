@@ -32,11 +32,12 @@ foreach ($rows as $play) {
 	?>
 
   <tr>
-    <td>
+    <td class="nroftd">
       <div class="nrof">
         <?= $play[0]?>
       </div>
-    </td><td>
+    </td>
+    <td>
       <strong><a target="_blank" href="<?= $play[2]?>"><?= $play[1]?></a></strong>
     </td>
   </tr>

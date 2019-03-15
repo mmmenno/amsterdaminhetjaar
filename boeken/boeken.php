@@ -117,14 +117,13 @@ foreach ($data['results']['bindings'] as $row) {
 	?>
 
   <tr>
-    <td>
+    <td class="nroftd">
       <div class="nrof">
         <?= $row['c']['value']?>
       </div>
     </td>
     <td>
-      <strong>
-        <?= $row['onderwerplabel']['value']?></strong>
+      <strong><?= $row['onderwerplabel']['value']?></strong>
     </td>
   </tr>
 
