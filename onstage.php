@@ -52,5 +52,5 @@ foreach ($rows as $play) {
   Meer dan de 10 meest opgevoerde stukken dit jaar vind je in <a target="_blank" href='http://www.vondel.humanities.uva.nl/onstage/'>OnStage</a>, waarin alle voorstellingen in de Amsterdamse Schouwburg zijn opgenomen.
 </p>
 <p class="smaller">
-  De data is nu alleen als <a target="_blank" href="https://en.wikipedia.org/wiki/RDFa">RDFa</a> in de html van de site opgenomen, maar aan een betere ontsluiting word gewerkt. Wij maakten voor nu <a target="_blank" href="data/onstage.json">dit jsonbestand</a>. 
+  De data is nu alleen als <a target="_blank" href="https://en.wikipedia.org/wiki/RDFa">RDFa</a> in de html van de site opgenomen, maar aan een betere ontsluiting wordt gewerkt. Wij maakten voor nu <a target="_blank" href="data/onstage.json">dit jsonbestand</a>. 
 </p>
