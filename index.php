@@ -40,7 +40,7 @@ if(isset($_GET['year'])){
 
 <div id="bigimg"></div>
 
-
+<div id="otheryearscontainer">
 <div id="otheryears">
 	
 	<?php
@@ -88,6 +88,7 @@ if(isset($_GET['year'])){
 	?>
 
 	
+</div>
 </div>
 
 
