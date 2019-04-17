@@ -3,8 +3,7 @@
 $endyear = $_GET['year']+1;
 $fromyear = $endyear-6;
 
-$sparqlQueryString = '
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+$sparqlQueryString = 'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX hg: <http://rdf.histograph.io/>
@@ -35,11 +34,23 @@ SELECT DISTINCT ?gebouw ?label ?time ?actie (SAMPLE(?cho) AS ?cho) (SAMPLE(?img)
 ORDER BY DESC(?time)
 LIMIT 10';
 
-$url = "https://api.data.adamlink.nl/datasets/AdamNet/all/services/endpoint/sparql?default-graph-uri=&query=" . urlencode($sparqlQueryString) . "&format=application%2Fsparql-results%2Bjson&timeout=12000&debug=on";
+$url = "https://api.druid.datalegend.net/datasets/adamnet/all/services/endpoint/sparql?query=" . urlencode($sparqlQueryString) . "";
 
-$queryurl = "https://data.adamlink.nl/AdamNet/all/sparql/endpoint#query=" . urlencode($sparqlQueryString) . "&endpoint=https%3A%2F%2Fdata.adamlink.nl%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
+$queryurl = "https://druid.datalegend.net/AdamNet/all/sparql/endpoint#query=" . urlencode($sparqlQueryString) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
 
-$json = file_get_contents($url);
+// Druid does not like url parameters, send accept header instead
+$opts = [
+    "http" => [
+        "method" => "GET",
+        "header" => "Accept: application/sparql-results+json\r\n"
+    ]
+];
+
+$context = stream_context_create($opts);
+
+// Open the file using the HTTP headers set above
+$json = file_get_contents($url, false, $context);
+
 $data = json_decode($json,true);
 
 $names = array();
@@ -94,7 +105,7 @@ if(count($data['results']['bindings'])<1){
 
 <p class="smaller">We gebruiken hier de <a target="_blank" href="https://adamlink.nl/geo/buildings/list">Adamlink gebouwenlijst</a>, vooral omdat die verbonden zijn met afbeeldingen in Amsterdamse collecties. In de BAG heeft <a href="https://code.waag.org/buildings/#52.3662,4.9121,13" target="_blank">elk gebouw een bouwjaar</a> (volledig, maar niet altijd even precies), op Wikidata vind je veel bouwjaren, <a target="_blank" href="http://verdwenengebouwen.nl/">Verdwenen Gebouwen</a> weet weer veel van ... juist.</p>
 
-<p class="smaller"><a target="_blank" href="<?= $queryurl ?>">SPARQL het zelf</a>, bij Adamlink.</p>
+<p class="smaller"><a target="_blank" href="<?= $queryurl ?>">SPARQL het zelf</a>, op de Adamlink endpoint.</p>
 
 
 

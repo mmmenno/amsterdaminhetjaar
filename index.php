@@ -161,7 +161,7 @@ if(isset($_GET['year'])){
 		<div class="content" id="drievliegen">
 			<p class="smaller">Met deze site willen we een snel overzicht geven van de Amsterdamse geschiedenis in willekeurig welk jaar - wie heeft het voor 't zeggen, hoe ziet de stad eruit en wat gebeurt er zoal op cultureel gebied?</p>
 
-			<p class="smaller">We gebruiken daarvoor online databronnen - het (beschikbaar) maken van goede data is een belangrijke doelstelling van de Amsterdam Time Machine. We verwijzen daarbij zoveel mogelijk naar API's en SPARQL endpoints. Vaardigheid in het schrijven van SPARQL queries is voor historici in de nabije toekomst waarschijnlijk net zo belangrijk als iets op kunnen diepen uit een archief.</p>
+			<p class="smaller">We gebruiken daarvoor online databronnen - het (beschikbaar) maken van goede data is een belangrijke doelstelling van de Amsterdam Time Machine. We verwijzen daarbij zoveel mogelijk naar API's en SPARQL endpoints. Enige SPARQLvaardigheid is geen overbodige luxe voor historici, journalisten, onderzoekers - eigenlijk iedereen die op zoek is naar specifieke informatie.</p>
 
 			<p class="smaller">Niet alle data is compleet. We laten zien waar we samen verder kunnen (en moeten) bouwen aan het Amsterdamse datalandschap. Iedereen kan een bijdrage leveren - door een eigen dataset toegankelijker te maken bijvoorbeeld, of door op Wikidata data aan te vullen en verbeteren.</p>
 		</div>

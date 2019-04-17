@@ -1,7 +1,6 @@
 <?php
 
-$sparqlquery = '
-PREFIX void: <http://rdfs.org/ns/void#>
+$sparqlquery = 'PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -28,13 +27,12 @@ LIMIT 20';
 //echo $sparqlquery;
 
 
-$url = "https://api.data.adamlink.nl/datasets/AdamNet/all/services/endpoint/sparql?default-graph-uri=&query=" . urlencode($sparqlquery) . "&format=application%2Fsparql-results%2Bjson&timeout=120000&debug=on";
+$url = "https://api.druid.datalegend.net/datasets/adamnet/all/services/endpoint/sparql?query=" . urlencode($sparqlquery) . "";
 
 
 // just for the link:
 
-$linksparqlquery = '
-PREFIX void: <http://rdfs.org/ns/void#>
+$linksparqlquery = 'PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -59,10 +57,23 @@ SELECT DISTINCT ?werk ?widget WHERE {
 GROUP BY ?werk ?set
 LIMIT 20';
 
-$queryurl = "https://data.adamlink.nl/AdamNet/all/sparql/endpoint#query=" . urlencode($linksparqlquery) . "&endpoint=https%3A%2F%2Fdata.adamlink.nl%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=gallery";
+//$queryurl = "https://data.adamlink.nl/AdamNet/all/sparql/endpoint#query=" . urlencode($linksparqlquery) . "&endpoint=https%3A%2F%2Fdata.adamlink.nl%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=gallery";
+
+$queryurl = "https://druid.datalegend.net/AdamNet/all/sparql/endpoint#query=" . urlencode($linksparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=gallery";
 
 
-$json = file_get_contents($url);
+// Druid does not like url parameters, send accept header instead
+$opts = [
+    "http" => [
+        "method" => "GET",
+        "header" => "Accept: application/sparql-results+json\r\n"
+    ]
+];
+
+$context = stream_context_create($opts);
+
+// Open the file using the HTTP headers set above
+$json = file_get_contents($url, false, $context);
 
 $data = json_decode($json,true);
 
