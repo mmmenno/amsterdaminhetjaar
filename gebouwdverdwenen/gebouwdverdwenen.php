@@ -105,7 +105,7 @@ if(count($data['results']['bindings'])<1){
 
 <p class="smaller">We gebruiken hier de <a target="_blank" href="https://adamlink.nl/geo/buildings/list">Adamlink gebouwenlijst</a>, vooral omdat die verbonden zijn met afbeeldingen in Amsterdamse collecties. In de BAG heeft <a href="https://code.waag.org/buildings/#52.3662,4.9121,13" target="_blank">elk gebouw een bouwjaar</a> (volledig, maar niet altijd even precies), op Wikidata vind je veel bouwjaren, <a target="_blank" href="http://verdwenengebouwen.nl/">Verdwenen Gebouwen</a> weet weer veel van ... juist.</p>
 
-<p class="smaller"><a target="_blank" href="<?= $queryurl ?>">SPARQL het zelf</a>, op de Adamlink endpoint.</p>
+<p class="smaller"><a target="_blank" href="<?= $queryurl ?>">SPARQL het zelf</a>, op AdamNets Druid endpoint.</p>
 
 
 

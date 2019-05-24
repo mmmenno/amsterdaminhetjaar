@@ -168,9 +168,7 @@ if(isset($_GET['year'])){
 
 
 		<h2>Tentoonstellingen</h2>
-		<div class="content" id="tentoonstellingen">
-			<p class="smaller">We zouden hier graag laten zien welke tentoonstellingen er in een bepaald jaar te zien waren en kijken nu of we dit voor elkaar kunnen krijgen. Suggesties en - liever nog - bijdragen zijn welkom!</p>
-		</div>
+		<div class="content" id="tentoonstellingen"></div>
 	</div>
 </div>
 
@@ -228,6 +226,9 @@ if(isset($_GET['year'])){
 					$('#boeken').load('boeken/boeken.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "onstage"){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "tentoonstellingen"){
+					console.log('expo!');
+					$('#tentoonstellingen').load('tentoonstellingen/tentoonstellingen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "burgemeesters"){
 					$('#burgemeesters').load('burgemeesters/burgemeesters.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "gebouwdverdwenen"){
