@@ -43,7 +43,7 @@ ORDER BY ?startjaar
 
 $queryurl = "https://query.wikidata.org/#" . rawurlencode($sparqlQueryString);
 
-
+/*
 $opts = [
 		    'http' => [
 		        'method' => 'GET',
@@ -56,6 +56,26 @@ $context = stream_context_create($opts);
 $endpointUrl = 'https://query.wikidata.org/sparql';
 $url = $endpointUrl . '?query=' . urlencode($sparqlQueryString);
 $response = file_get_contents($url, false, $context);
+*/
+
+// got to fake, wikidata endpoint returned 403 error without user agent, all of a sudden
+$endpointUrl = 'https://query.wikidata.org/sparql';
+$url = $endpointUrl . '?query=' . urlencode($sparqlQueryString) . "&format=json";
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+$headers = [
+    'Accept: application/sparql-results+json'
+];
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$response = curl_exec ($ch);
+
+curl_close ($ch);
+
 $data = json_decode($response, true);
 
 
