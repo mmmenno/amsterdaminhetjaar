@@ -156,6 +156,10 @@ if(isset($_GET['year'])){
 		<div class="content" id="onstage"></div>
 
 
+		<h2>Tentoonstellingen</h2>
+		<div class="content" id="tentoonstellingen"></div>
+
+
 
 		<h2>Over deze website</h2>
 		<div class="content" id="drievliegen">
@@ -166,9 +170,7 @@ if(isset($_GET['year'])){
 			<p class="smaller">Niet alle data is compleet. We laten zien waar we samen verder kunnen (en moeten) bouwen aan het Amsterdamse datalandschap. Iedereen kan een bijdrage leveren - door een eigen dataset toegankelijker te maken bijvoorbeeld, of door op Wikidata data aan te vullen en verbeteren.</p>
 		</div>
 
-
-		<h2>Tentoonstellingen</h2>
-		<div class="content" id="tentoonstellingen"></div>
+		
 	</div>
 </div>
 

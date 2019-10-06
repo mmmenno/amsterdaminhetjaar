@@ -153,12 +153,12 @@ $twothirds = $onethird*2;
 
 <div class="container-fluid">
 	<div class="col-md-3">
-		<h2>De data</h2>
+		<h3>De data</h3>
 		<div class="opencontent">
 			De hier getoonde data is afkomstig van <a target="_blank" href="https://www.wikidata.org">Wikidata</a>. Mist er data of klopt er iets niet? Je kunt er zelf gegevens of afbeeldingen toevoegen, die worden hier dan ook zichtbaar. Je kan deze query ook daar <a target="_blank" href="<?= $queryurl ?>">bekijken en aanpassen</a> naar je eigen behoefte.
 		</div>
 
-		<h2>Amsterdam in ....</h2>
+		<h3>Amsterdam in ....</h3>
 		<div class="opencontent">
 			Dit burgemeestersoverzicht is onderdeel van het project <a href="../">'Amsterdam in ....'</a>, dat wil laten zien welke Amsterdamse bronnen al beschikbaar zijn als linked open data.
 		</div>
@@ -168,21 +168,31 @@ $twothirds = $onethird*2;
 		<?php
 			for($i=0; $i<$onethird; $i++) { 
 
-				if(isset($rows[$i]['wikipedia']['value'])){
-					$link = $rows[$i]['wikipedia']['value'];
-				}else{
+				//if(isset($rows[$i]['wikipedia']['value'])){
+				//	$link = $rows[$i]['wikipedia']['value'];
+				//}else{
 					$link = $rows[$i]['m']['value'];
-				}
+				//}
 				$allyears = implode(", ",$rows[$i]['periods']);
 				?>
-				<h2><a target="_blank" href="<?= $link ?>">
+				<h3>
+					<a target="_blank" href="<?= $link ?>">
 					<?= $rows[$i]['mLabel']['value'] ?>
-				</a></h2>
+					</a>
+					<a target="_blank" href="https://tools.wmflabs.org/wikidata-todo/relator/#/<?= str_replace("http://www.wikidata.org/entity/", "", $rows[$i]['m']['value']) ?>">⌖</a>
+					<?php if(isset($rows[$i]['wikipedia']['value'])){ ?>
+						<a target="_blank" href="<?= $rows[$i]['wikipedia']['value'] ?>">
+							<img style="height: 16px;" src="../assets/img/wp.png" />
+						</a>
+					<?php } ?>
+				</h3>
 
-				<p class="smaller"><strong><?= $allyears ?></strong></p>
-				
-				<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
-				
+				<p class="smaller"><strong>
+					<?= $allyears ?></strong>
+				</p>
+				<?php if(isset($rows[$i]['afb']['value'])){ ?>
+					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
+				<?php } ?>
 				<?php 
 			} 
 
@@ -192,21 +202,31 @@ $twothirds = $onethird*2;
 		<?php
 			for($i=$onethird; $i<$twothirds; $i++) { 
 
-				if(isset($rows[$i]['wikipedia']['value'])){
-					$link = $rows[$i]['wikipedia']['value'];
-				}else{
+				//if(isset($rows[$i]['wikipedia']['value'])){
+				//	$link = $rows[$i]['wikipedia']['value'];
+				//}else{
 					$link = $rows[$i]['m']['value'];
-				}
+				//}
 				$allyears = implode(", ",$rows[$i]['periods']);
 				?>
-				<h2><a target="_blank" href="<?= $link ?>">
+				<h3>
+					<a target="_blank" href="<?= $link ?>">
 					<?= $rows[$i]['mLabel']['value'] ?>
-				</a></h2>
+					</a>
+					<a target="_blank" href="https://tools.wmflabs.org/wikidata-todo/relator/#/<?= str_replace("http://www.wikidata.org/entity/", "", $rows[$i]['m']['value']) ?>">⌖</a>
+					<?php if(isset($rows[$i]['wikipedia']['value'])){ ?>
+						<a target="_blank" href="<?= $rows[$i]['wikipedia']['value'] ?>">
+							<img style="height: 16px;" src="../assets/img/wp.png" />
+						</a>
+					<?php } ?>
+				</h3>
 
-				<p class="smaller"><strong><?= $allyears ?></strong></p>
-				
-				<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
-				
+				<p class="smaller"><strong>
+					<?= $allyears ?></strong>
+				</p>
+				<?php if(isset($rows[$i]['afb']['value'])){ ?>
+					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
+				<?php } ?>
 				<?php 
 			} 
 
@@ -216,21 +236,31 @@ $twothirds = $onethird*2;
 		<?php
 			for($i=$twothirds; $i<count($rows); $i++) { 
 
-				if(isset($rows[$i]['wikipedia']['value'])){
-					$link = $rows[$i]['wikipedia']['value'];
-				}else{
+				//if(isset($rows[$i]['wikipedia']['value'])){
+				//	$link = $rows[$i]['wikipedia']['value'];
+				//}else{
 					$link = $rows[$i]['m']['value'];
-				}
+				//}
 				$allyears = implode(", ",$rows[$i]['periods']);
 				?>
-				<h2><a target="_blank" href="<?= $link ?>">
+				<h3>
+					<a target="_blank" href="<?= $link ?>">
 					<?= $rows[$i]['mLabel']['value'] ?>
-				</a></h2>
+					</a>
+					<a target="_blank" href="https://tools.wmflabs.org/wikidata-todo/relator/#/<?= str_replace("http://www.wikidata.org/entity/", "", $rows[$i]['m']['value']) ?>">⌖</a>
+					<?php if(isset($rows[$i]['wikipedia']['value'])){ ?>
+						<a target="_blank" href="<?= $rows[$i]['wikipedia']['value'] ?>">
+							<img style="height: 16px;" src="../assets/img/wp.png" />
+						</a>
+					<?php } ?>
+				</h3>
 
-				<p class="smaller"><strong><?= $allyears ?></strong></p>
-				
-				<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
-				
+				<p class="smaller"><strong>
+					<?= $allyears ?></strong>
+				</p>
+				<?php if(isset($rows[$i]['afb']['value'])){ ?>
+					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
+				<?php } ?>
 				<?php 
 			} 
 
