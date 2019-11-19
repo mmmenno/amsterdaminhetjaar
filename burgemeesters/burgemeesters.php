@@ -104,7 +104,7 @@ foreach ($data['results']['bindings'] as $row) {
 		<td style="width: 60px;">
 		<?php if(isset($row['afb']['value'])){ ?>
 			<a target="_blank" href="<?= $link ?>">
-				<img style="width: 60px;" src="<?= $row['afb']['value'] ?>" />
+				<img style="width: 60px;" src="<?= $row['afb']['value'] ?>?width=300px" />
 			</a>
 		<? }else{ ?>
 			<div style="width: 60px; height: 50px; background-color: #EBEBEB;"></div>

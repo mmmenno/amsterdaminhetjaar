@@ -191,7 +191,7 @@ $twothirds = $onethird*2;
 					<?= $allyears ?></strong>
 				</p>
 				<?php if(isset($rows[$i]['afb']['value'])){ ?>
-					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
+					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>?width=300px" />
 				<?php } ?>
 				<?php 
 			} 
@@ -225,7 +225,7 @@ $twothirds = $onethird*2;
 					<?= $allyears ?></strong>
 				</p>
 				<?php if(isset($rows[$i]['afb']['value'])){ ?>
-					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
+					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>?width=300px" />
 				<?php } ?>
 				<?php 
 			} 
@@ -259,7 +259,7 @@ $twothirds = $onethird*2;
 					<?= $allyears ?></strong>
 				</p>
 				<?php if(isset($rows[$i]['afb']['value'])){ ?>
-					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>" />
+					<img style="width: 100%;" src="<?= $rows[$i]['afb']['value'] ?>?width=300px" />
 				<?php } ?>
 				<?php 
 			} 
