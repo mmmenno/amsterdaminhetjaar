@@ -144,6 +144,9 @@ if(isset($_GET['year'])){
 		<h2>Vrouwen in de kunst</h2>
 		<div class="content" id="vrouwen"></div>
 
+		<h2>Nieuw in de kunstscene</h2>
+		<div class="content" id="kunstscene"></div>
+
 
 	</div>
 	<div class="col-md-4">
@@ -233,8 +236,9 @@ if(isset($_GET['year'])){
 				}else if(div.attr('id') == "tentoonstellingen"){
 					$('#tentoonstellingen').load('tentoonstellingen/tentoonstellingen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "vrouwen"){
-					console.log('vrouwen!');
 					$('#vrouwen').load('rkd/vrouwen.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "kunstscene"){
+					$('#kunstscene').load('rkd/kunstscene.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "burgemeesters"){
 					$('#burgemeesters').load('burgemeesters/burgemeesters.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "gebouwdverdwenen"){
