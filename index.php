@@ -125,10 +125,12 @@ if(isset($_GET['year'])){
 		<h2>Gebouwd en verdwenen</h2>
 		<div class="content" id="gebouwdverdwenen"></div>
 
+		<? /*
 		<h2>Gebeurtenissen</h2>
 		<div class="content" id="gebeurtenissen">
 			<p class="smaller">Tja, een gebeurtenissenoverzicht lijkt nog niet voorhanden te zijn, dat wil zeggen niet in gestructureerde vorm.</p>
 		</div>
+		*/ ?>
 
 
 	</div>
@@ -136,20 +138,20 @@ if(isset($_GET['year'])){
 		<h2>Stratenplan</h2>
 		<div class="content" id="kaart"></div>
 
-		<h2>Wijkindeling</h2>
-		<div class="content" id="wijkindeling">
-			<p class="smaller">Voor de wijken verwijzen we nu nog even naar <a target="_blank" href="https://adamlink.nl/geo/districts">Adamlink.nl/geo/districts</a>. Daar vind je overzichten van de huidige wijken en buurten, maar ook de 19e-eeuwse buurtindeling en de indeling van 1909.</p>
-		</div>
-
-
 		<h2>Straatbeelden</h2>
 		<div class="content" id="afgebeeld"></div>
+
+		<h2>Vrouwen in de kunst</h2>
+		<div class="content" id="vrouwen"></div>
 
 
 	</div>
 	<div class="col-md-4">
+
+		<? /*
 		<h2>Gepubliceerde boeken</h2>
 		<div class="content" id="boeken"></div>
+		*/ ?>
 
 
 		<h2>In de Schouwburg</h2>
@@ -229,8 +231,10 @@ if(isset($_GET['year'])){
 				}else if(div.attr('id') == "onstage"){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "tentoonstellingen"){
-					console.log('expo!');
 					$('#tentoonstellingen').load('tentoonstellingen/tentoonstellingen.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "vrouwen"){
+					console.log('vrouwen!');
+					$('#vrouwen').load('rkd/vrouwen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "burgemeesters"){
 					$('#burgemeesters').load('burgemeesters/burgemeesters.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "gebouwdverdwenen"){
