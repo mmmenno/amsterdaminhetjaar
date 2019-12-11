@@ -132,6 +132,9 @@ if(isset($_GET['year'])){
 		</div>
 		*/ ?>
 
+		<h2>Schrijfsters</h2>
+		<div class="content" id="schrijfsters"></div>
+
 
 	</div>
 	<div class="col-md-4">
@@ -235,6 +238,8 @@ if(isset($_GET['year'])){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "tentoonstellingen"){
 					$('#tentoonstellingen').load('tentoonstellingen/tentoonstellingen.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "schrijfsters"){
+					$('#schrijfsters').load('womenwriters/writers.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "vrouwen"){
 					$('#vrouwen').load('rkd/vrouwen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "kunstscene"){
