@@ -1,11 +1,12 @@
 <?php
 
+$sparqlendpoint = "http://data.bibliotheken.nl/sparql";
+$note = 'Sparql het zelf via de <a href="http://data.bibliotheken.nl/sparql">sparqlendpoint</a> van de KB!';
+
 if ($_GET['year'] >= 1800) {
 
-  $sparqlendpoint = "http://data.bibliotheken.nl/sparql";
   $source = "<a target='_blank' href='http://data.bibliotheken.nl/'>KB, Nederlandse Bibliografie Totaal (NBT)</a>";
-  $note = 'Sparql het zelf via de <a href="http://data.bibliotheken.nl/sparql">sparqlendpoint</a> van de KB!';
-
+  
   $sparqlcountquery = '
 select (COUNT(?uri) AS ?c) where {
 
@@ -41,44 +42,52 @@ $url = $sparqlendpoint . "?default-graph-uri=&query=" . urlencode($sparqlquery) 
 } elseif ($_GET['year'] < 1800) {
 
   // STCN
-  // Oude versie, geen impressum opgenomen bij het boek, dus dit moet via de drukker... 
 
-  $sparqlendpoint = "http://openvirtuoso.kbresearch.nl/sparql";
   $source = "<a target='_blank' href='https://www.kb.nl/organisatie/onderzoek-expertise/informatie-infrastructuur-diensten-voor-bibliotheken/short-title-catalogue-netherlands-stcn'>STCN</a>";
-  $note = "Er is nu nog gebruikgemaakt van een oudere linked-dataversie van de STCN-catalogus, maar een nieuwe is onderweg. De aantallen hierboven zijn gebaseerd op de vestigingsplaats [=Amsterdam] van een drukker en die is mogelijk niet correct gekoppeld aan het publicatiejaar. Sparql het zelf via de <a href='http://openvirtuoso.kbresearch.nl/sparql'>sparqlendpoint</a> van de STCN!";
-
+  
   $sparqlcountquery = '
-  select (COUNT(?boek) AS ?c) WHERE { 
+  SELECT (COUNT(distinct ?boek) AS ?c) WHERE { 
 
-    ?boek dc:title ?boektitel ;
-          dc:publisher ?drukker ;
-          dc:date "' . $_GET['year'] . '" .
+    ?boek foaf:isPrimaryTopicOf/void:inDataset <http://data.bibliotheken.nl/id/dataset/stcn> .
 
-    ?drukker skos:prefLabel ?drukkernaam ;
-             skos:editorialNote ?impressum .
+    ?boek schema:name ?boektitel ;
+          schema:publication ?pubEvent .
 
-FILTER (regex(?impressum, "amste", "i"))
+    # There is a typo in here!
+    ?pubEvent <http://semanticweb.cs.vu.nl/2009/11/sem/hasEarliestBeginTimestamp> ?earliestTimeStamp ;
+              <http://semanticweb.cs.vu.nl/2009/11/sem/hasLatestEndTimestamp> ?latestEndTimeStamp ;
+              schema:description ?pubDescription .
 
-}
-  ';
+    BIND("'. $_GET['year'] .'"^^xsd:gYear AS ?year) .
+
+    FILTER (regex(?pubDescription, "amste", "i"))
+    FILTER (?earliestTimeStamp <= ?year && ?latestEndTimeStamp >= ?year)
+
+  }';
   
   $sparqlquery = '
-  select (COUNT(?onderwerp) AS ?c) (SAMPLE(?onderwerplabel) AS ?onderwerplabel) WHERE { 
+  SELECT (COUNT(distinct ?boek) AS ?c) (SAMPLE(?onderwerplabel) AS ?onderwerplabel) WHERE { 
 
-    ?boek dc:title ?boektitel ;
-          dc:publisher ?drukker ;
-          dc:subject ?onderwerp ;
-          dc:date "' . $_GET['year'] . '" .
+      ?boek foaf:isPrimaryTopicOf/void:inDataset <http://data.bibliotheken.nl/id/dataset/stcn> .
 
-    ?drukker skos:prefLabel ?drukkernaam ;
-             skos:editorialNote ?impressum .
+      ?boek schema:name ?boektitel ;
+            schema:about ?onderwerp ;
+            schema:publication ?pubEvent .
 
-    ?onderwerp skos:prefLabel ?onderwerplabel .
+      ?onderwerp skos:altLabel ?onderwerplabel .
 
-FILTER (regex(?impressum, "amste", "i"))
+      # There is a typo in here!
+      ?pubEvent <http://semanticweb.cs.vu.nl/2009/11/sem/hasEarliestBeginTimestamp> ?earliestTimeStamp ;
+                <http://semanticweb.cs.vu.nl/2009/11/sem/hasLatestEndTimestamp> ?latestEndTimeStamp ;
+                schema:description ?pubDescription .
 
-} GROUP BY ?onderwerp ORDER BY DESC(?c)
-LIMIT 10
+      BIND("'. $_GET['year'] .'"^^xsd:gYear AS ?year) .
+
+      FILTER (regex(?pubDescription, "amste", "i"))
+      FILTER (?earliestTimeStamp <= ?year && ?latestEndTimeStamp >= ?year)
+
+  } GROUP BY ?onderwerp ORDER BY DESC(?c) 
+  LIMIT 10
   ';
 
   $urlcount = $sparqlendpoint . "?default-graph-uri=&query=" . urlencode($sparqlcountquery) . "&format=application%2Fsparql-results%2Bjson&timeout=120000&debug=on";

@@ -154,10 +154,8 @@ if(isset($_GET['year'])){
 	</div>
 	<div class="col-md-4">
 
-		<? /*
 		<h2>Gepubliceerde boeken</h2>
 		<div class="content" id="boeken"></div>
-		*/ ?>
 
 
 		<h2>In de Schouwburg</h2>
