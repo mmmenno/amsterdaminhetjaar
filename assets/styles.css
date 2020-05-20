@@ -14,6 +14,10 @@ html, body{
 .smaller{
 	font-size: 16px;
 }
+
+.evensmaller{
+	font-size: 13px;
+}
 h1{
 	margin-top: 20px;
 	padding-bottom: 12px;
