@@ -55,12 +55,14 @@ $singles = array();
 foreach ($data['results']['bindings'] as $k => $v) {
 	$cinemas = explode(", ", $v['cinemas']['value']);
 	if(count($cinemas) < 2){
-		$singles = array(
-			"film" => $v['film']['value'],
-			"filmtitle" => $v['filmtitle']['value'],
-			"number" => $v['number']['value'],
-			"cinema" =>  $cinemas[0]
-		);
+		if(count($singles)==0){
+			$singles = array(
+				"film" => $v['film']['value'],
+				"filmtitle" => $v['filmtitle']['value'],
+				"number" => $v['number']['value'],
+				"cinema" =>  $cinemas[0]
+			);
+		}
 		continue;
 	}
 
@@ -127,7 +129,7 @@ foreach ($list as $row) {
 <?php } ?> 
 
 <p class="smaller">
-	<a target="_blank" href="<?= $queryurl ?>">SPARQL het zelf</a>, op de CREATE sparql endpoint.
+	<a target="_blank" href="<?= $queryurl ?>">SPARQL het zelf</a> in de Cinema Context data, op de CREATE sparql endpoint.
 </p>
 
 
