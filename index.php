@@ -163,6 +163,10 @@ if(isset($_GET['year'])){
 
 
 		<h2>Meestgeprogrammeerde films</h2>
+		<div class="content" id="films"></div>
+
+
+		<h2>Alle bioscopen</h2>
 		<div class="content" id="bioscopen"></div>
 
 
@@ -240,8 +244,10 @@ if(isset($_GET['year'])){
 					$('#onstage').load('onstage.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "tentoonstellingen"){
 					$('#tentoonstellingen').load('tentoonstellingen/tentoonstellingen.php?year=<?= $year ?>');
+				}else if(div.attr('id') == "films"){
+					$('#films').load('bioscopen/filmvoorstellingen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "bioscopen"){
-					$('#bioscopen').load('bioscopen/filmvoorstellingen.php?year=<?= $year ?>');
+					$('#bioscopen').load('bioscopen/bioscopen.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "schrijfsters"){
 					$('#schrijfsters').load('womenwriters/writers.php?year=<?= $year ?>');
 				}else if(div.attr('id') == "vrouwen"){
