@@ -99,10 +99,10 @@ foreach ($nrs as $k => $v) {
 
 	if(strlen($cinemas[$k]['captime'])){
 		$capacity = $cinemas[$k]['capacity'];
-		$description = "Bestaat sinds " . substr($cinemas[$k]['begin'],0,4) . ", capaciteit gemeten in " . substr($cinemas[$k]['captime'],0,4);
+		$description = "Sinds " . substr($cinemas[$k]['begin'],0,4) . ", aantal stoelen gemeten in " . substr($cinemas[$k]['captime'],0,4);
 	}else{
 		$capacity = "?";
-		$description = "Bestaat sinds " . substr($cinemas[$k]['begin'],0,4) . ", capaciteit onbekend";
+		$description = "Sinds " . substr($cinemas[$k]['begin'],0,4) . ", aantal stoelen onbekend";
 	}
 	?>
 	
@@ -130,7 +130,7 @@ foreach ($nrs as $k => $v) {
 
 <?php if(count($cinemas)){ ?>
 	<p class="smaller">
-		De bioscopen zijn gesorteerd op capaciteit. De cijfers zijn zeker niet altijd recent en compleet, maar het lijkt erop dat er dit jaar zeker voor <?= $total ?> mensen een zitplaats was.
+		De bioscopen zijn gesorteerd op capaciteit. De cijfers zijn zeker niet altijd recent en compleet, maar het lijkt erop dat er dit jaar zeker voor <strong><?= $total ?></strong> mensen een zitplaats was.
 	</p>
 <?php }else{ ?> 
 	<p class="smaller">
