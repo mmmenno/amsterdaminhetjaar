@@ -5,7 +5,6 @@ $nextyear = $_GET['year']+1;
 $sparqlQueryString = "
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX sem: <http://semanticweb.cs.vu.nl/2009/11/sem/>
-PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX schema: <http://schema.org/>
@@ -27,8 +26,8 @@ WHERE {
 	?place schema:address/schema:addressLocality 'Amsterdam' .
   	?place geo:hasGeometry/geo:asWKT ?wkt .
   	OPTIONAL{
-	  	?venue dbo:seatingCapacity ?capnode .
-	  	?capnode dbo:seatingCapacity ?cap .
+	  	?venue schema:maximumAttendeeCapacity ?capnode .
+	  	?capnode schema:maximumAttendeeCapacity ?cap .
 	  	?capnode sem:hasLatestBeginTimeStamp ?captime .
 		FILTER(?captime <= \"" . $nextyear . "\"^^xsd:gYear)	
 	}
