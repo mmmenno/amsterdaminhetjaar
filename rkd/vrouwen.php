@@ -23,7 +23,7 @@ SELECT ?startyear ?endyear ?deathdateyear ?artist ?name ?rkdid WHERE {
   FILTER(?startyear <= " . $_GET['year'] . ") .
   FILTER(?endyear > " . $_GET['year'] . ") .
   ?event schema:actor ?actor .
-  BIND(STRAFTER(?actor,\"https://data.rkd.nl/artists/\") AS ?rkdid) .
+  BIND(STRAFTER(STR(?actor),\"https://data.rkd.nl/artists/\") AS ?rkdid) .
   BIND(IRI(?actor) AS ?artist) .
   ?artist rkd:Death/schema:startDate ?deathdate .
   BIND(IF(COALESCE(xsd:datetime(str(?deathdate)), '!') != '!',

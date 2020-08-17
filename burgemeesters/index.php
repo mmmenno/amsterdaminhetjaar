@@ -13,7 +13,7 @@ if(isset($_GET['until'])){
 }
 
 $sparqlQueryString = "
-SELECT DISTINCT ?m ?mLabel ?startjaar ?eindjaar ?wikipedia ?afb
+SELECT DISTINCT ?m ?mLabel ?startjaar ?eindjaar ?wikipedia (SAMPLE(?afb) AS ?afb)
 WHERE 
 {
  ?m p:P39 ?ambt .
@@ -31,7 +31,7 @@ WHERE
  FILTER(?eindjaar >= " . $from . " )
  SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],nl\". }
 } 
-GROUP BY ?m ?mLabel ?startjaar ?eindjaar ?wikipedia ?afb
+GROUP BY ?m ?mLabel ?startjaar ?eindjaar ?wikipedia
 ORDER BY ?startjaar
 ";
 
