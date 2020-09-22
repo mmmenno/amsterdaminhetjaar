@@ -16,6 +16,7 @@ WHERE {
 	?film a schema:Movie .
 	?film schema:name ?filmtitle .
 	?program schema:subEvent/schema:workPresented ?film .
+  	FILTER (!REGEX(str(?program),\"http://www.cinemacontext.nl/id/V$\"))
 	?program schema:location ?venue .
 	?program schema:startDate ?date .
 	FILTER(?date > \"" . $_GET['year'] . "\"^^xsd:gYear)
